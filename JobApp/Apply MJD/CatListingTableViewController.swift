@@ -15,6 +15,8 @@ class CatListingTableViewController: UITableViewController {
 
 
     var cats: [Cat] = []
+  
+    var catImages: [Int: UIImage] = [:]
 
     var clientApi: APIClient?
   
@@ -35,7 +37,22 @@ class CatListingTableViewController: UITableViewController {
         }
         
         self.cats = cats
+        
+        for (index, cat) in self.cats.enumerated() {
+          if let catImage = cat.image, let url = URL(string: catImage) {
+            clientApi.loadImage(url: url, completion: { (image, errors) in
+              if let errors = errors {
+                print(errors.localizedDescription)
+                return
+              }
+              self.catImages[index] = image
+              self.tableView.reloadData()
+            })
+          }
+        }
+        
         self.tableView.reloadData()
+        
       }
     }
   
@@ -53,7 +70,15 @@ class CatListingTableViewController: UITableViewController {
         fatalError("Could not load kitty table view cell")
       }
       let cat = cats[indexPath.row]
-      cell.caption.text = cat.caption
+      if let caption = cat.caption {
+        cell.caption.text = caption
+      } else {
+        cell.caption = ""
+      }
+      if let image = self.catImages[indexPath.row] {
+        cell.catImage.image = image
+      }
+      
       cell.catName.text = cat.name
       
       return cell
