@@ -10,9 +10,11 @@ import XCTest
 @testable import DataManager
 
 class DataManagerTests: XCTestCase {
-    
+  
+    let clientAPI = HTTPAPIClient()
     override func setUp() {
         super.setUp()
+      
     }
     
     override func tearDown() {
@@ -22,7 +24,7 @@ class DataManagerTests: XCTestCase {
 
     func testConnection() {
 
-        APIClient.getCats(){ (cats, error) in
+        clientAPI.getCats(){ (cats, error) in
 
             XCTAssertNil(error, "Error: \(error?.description)")
 
