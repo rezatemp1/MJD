@@ -57,6 +57,8 @@ public struct HTTPAPIClient {
     static let apiPath = "/data"
 
     static let catsPath = "/cats.json"
+  
+  public init() {}
 
     fileprivate static func url(forComponent component: String) -> URL? {
         let combinedPath = "\(apiPath)\(component)"
