@@ -152,7 +152,7 @@ extension HTTPAPIClient: APIClient {
 
         var request = URLRequest(url: url)
         request.httpMethod = RequestType.GET.rawValue
-
+        
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request) { (data, response, error) -> Void in
             DispatchQueue.main.async {

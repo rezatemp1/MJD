@@ -70,11 +70,9 @@ class CatListingTableViewController: UITableViewController {
         fatalError("Could not load kitty table view cell")
       }
       let cat = cats[indexPath.row]
-      if let caption = cat.caption {
-        cell.caption.text = caption
-      } else {
-        cell.caption = ""
-      }
+
+      cell.caption.text = cat.caption ?? ""
+
       if let image = self.catImages[indexPath.row] {
         cell.catImage.image = image
       }
